@@ -8,7 +8,9 @@ version = "0.1.0"
 description = "A CLI habit and task tracker with streak analytics"
 requires-python = ">=3.10"
 readme = "README.md"
-dependencies = []
+dependencies = [
+  "matplotlib>=3.5.0"
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "ruff>=0.4"]
