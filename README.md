@@ -2,7 +2,7 @@
 
 TrackR is a simple personal finance CLI tool written in Python. You can give it a CSV file of bank transactions, and it will find recurring payments (like subscriptions or rent), estimate your future account balance based on spending trends, print basic recommendations, and output an HTML report with a plot.
 
-This project was built for the Introduction to Python course final project.
+This project is built for the Introduction to Python course final project.
 
 ## Features
 

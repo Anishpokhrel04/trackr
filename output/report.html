@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TrackR Financial Dashboard</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f4f6f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h1 { color: #2b5c8f; margin-top: 0; }
+        .grid { display: flex; gap: 15px; margin-bottom: 25px; }
+        .card { flex: 1; background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; text-align: center; }
+        .card h3 { margin: 0 0 8px 0; font-size: 14px; color: #64748b; }
+        .card p { margin: 0; font-size: 22px; font-weight: bold; color: #1e293b; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f1f5f9; }
+        img { max-width: 100%; border-radius: 6px; margin: 20px 0; }
+        ul { background: #eff6ff; padding: 15px 30px; border-radius: 6px; border-left: 4px solid #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TrackR Financial Analysis Dashboard</h1>
+        
+        <div class="grid">
+            <div class="card"><h3>Total Income</h3><p>$12,800.00</p></div>
+            <div class="card"><h3>Total Expenses</h3><p>$4,899.92</p></div>
+            <div class="card"><h3>Net Savings</h3><p>$7,900.08</p></div>
+        </div>
+
+        <h2>Balance History & Projection</h2>
+        <img src="balance_plot.png" alt="Balance Plot">
+
+        <h2>Detected Recurring Payments</h2>
+        <table>
+            <thead>
+                <tr><th>Description</th><th>Avg Amount</th><th>Occurrences</th><th>Avg Interval</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Salary ACME Corp</td><td>$3200.00</td><td>4</td><td>30.7 days</td></tr><tr><td>Landlord Rent Payment</td><td>$950.00</td><td>4</td><td>30.7 days</td></tr><tr><td>REWE Supermarket</td><td>$68.67</td><td>6</td><td>18.6 days</td></tr><tr><td>Netflix Subscription</td><td>$17.99</td><td>4</td><td>30.7 days</td></tr><tr><td>Spotify Premium</td><td>$10.99</td><td>4</td><td>30.7 days</td></tr><tr><td>Gym Membership</td><td>$35.00</td><td>4</td><td>30.7 days</td></tr>
+            </tbody>
+        </table>
+
+        <h2>Actionable Recommendations</h2>
+        <ul>
+            <li>Good Savings Rate: You saved 61.7% of income during this period.</li>
+        </ul>
+    </div>
+</body>
+</html>
