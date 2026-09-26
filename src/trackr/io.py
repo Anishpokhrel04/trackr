@@ -1,4 +1,4 @@
-"""CSV loading and validation for transaction history."""
+"""CSV parsing module with support for multiple bank date formats."""
 
 import csv
 from datetime import datetime
@@ -7,40 +7,36 @@ from typing import List
 
 from trackr.models import Transaction
 
+DATE_FORMATS = ["%Y-%m-%d", "%d.%m.%Y", "%m/%d/%Y"]
+
+
+def parse_date(date_str: str) -> datetime:
+    """Parse string date using common bank formats."""
+    cleaned = date_str.strip()
+    for fmt in DATE_FORMATS:
+        try:
+            return datetime.strptime(cleaned, fmt)
+        except ValueError:
+            continue
+    raise ValueError(f"Unsupported date format: {date_str}")
+
 
 def load_transactions(file_path: str | Path) -> List[Transaction]:
-    """Load and parse transactions from a CSV file.
-
-    Expected CSV columns: date, description, amount
-    """
+    """Read CSV file and convert rows into a list of Transaction objects."""
     path = Path(file_path)
-    if not path.exists():
-        raise FileNotFoundError(f"Transaction file not found: {file_path}")
+    if not path.is_file():
+        raise FileNotFoundError(f"CSV file not found: {path}")
 
     transactions: List[Transaction] = []
-    
-    # Supported date formats
-    date_formats = ["%Y-%m-%d", "%d.%m.%Y", "%m/%d/%Y"]
-
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, mode="r", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            raw_date = row["date"].strip()
-            description = row["description"].strip()
-            amount = float(row["amount"].strip())
+            transactions.append(
+                Transaction(
+                    date=parse_date(row["date"]),
+                    description=row["description"].strip(),
+                    amount=float(row["amount"]),
+                )
+            )
 
-            parsed_date = None
-            for fmt in date_formats:
-                try:
-                    parsed_date = datetime.strptime(raw_date, fmt)
-                    break
-                except ValueError:
-                    continue
-
-            if parsed_date is None:
-                raise ValueError(f"Unsupported date format: '{raw_date}' in file {file_path}")
-
-            transactions.append(Transaction(date=parsed_date, description=description, amount=amount))
-
-    # Return transactions sorted chronologically
     return sorted(transactions, key=lambda t: t.date)

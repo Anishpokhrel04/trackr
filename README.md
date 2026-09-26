@@ -1,35 +1,42 @@
 # TrackR
 
-TrackR is a simple personal finance CLI tool written in Python. You can give it a CSV file of bank transactions, and it will find recurring payments (like subscriptions or rent), estimate your future account balance based on spending trends, print basic recommendations, and output an HTML report with a plot.
+TrackR is a lightweight Python command-line application built for personal finance analysis. It ingests CSV transaction data to automatically identify recurring payments (subscriptions, rent, salaries), compute daily cash flow, project future account balance trends, and generate visual HTML summary reports.
 
-This project is built for the Introduction to Python course final project.
+This repository serves as the final submission for the Introduction to Python course.
 
-## Features
+---
 
-- Parses transaction CSV files with dates in `YYYY-MM-DD`, `DD.MM.YYYY`, or `MM/DD/YYYY` format.
-- Groups transactions by description to detect repeating monthly or weekly payments.
-- Simple linear prediction of future balance over a given number of days.
-- Calculates savings rates and outputs financial advice.
-- Saves a plot of balance history to a `.png` file using Matplotlib.
-- Generates a standalone `report.html` file with summary statistics and charts.
+## Key Features
 
-## Project Structure
+- **CSV Ingestion (`io.py`):** Loads bank transaction files with flexible date formats (`YYYY-MM-DD`, `DD.MM.YYYY`, `MM/DD/YYYY`).
+- **Recurring Payment Engine (`analysis.py`):** Groups descriptions and measures transaction intervals to identify repeating fixed expenses and income.
+- **Balance Trend Forecasting (`analysis.py`):** Calculates historical daily balances and projects linear trends forward over a configurable date range.
+- **Rule-Based Recommendations (`recommend.py`):** Evaluates savings rates and fixed expense ratios to generate actionable advice.
+- **Visual Analytics (`visualize.py`):** Plots account balance history and linear projections to high-resolution PNG charts using Matplotlib.
+- **Interactive Dashboard (`htmlreport.py`):** Compiles key financial metrics, recurring ledgers, recommendations, and embedded charts into a single standalone `report.html`.
+
+---
+
+## Project Architecture
 
 ```text
 trackr/
 ├── data/
-│   └── sample_transactions.csv   # Example transaction file
-├── output/                       # Output directory for generated reports & plots
-├── pyproject.toml                # Build and dependency setup
-├── README.md
-└── src/
-    └── trackr/
-        ├── __init__.py           # Package version and exports
-        ├── __main__.py           # Main entry point for python -m trackr
-        ├── cli.py                # Command-line interface logic (argparse)
-        ├── models.py             # Transaction and RecurringPayment classes
-        ├── io.py                 # Reading and parsing CSV data
-        ├── analysis.py           # Recurring payment detection & balance math
-        ├── recommend.py          # Advice and rule generation
-        ├── visualize.py          # Matplotlib chart generator
-        └── htmlreport.py         # HTML page generator
+│   └── sample_transactions.csv   # Sample transaction dataset for testing
+├── output/                       # Default folder for generated HTML & PNG reports
+├── src/
+│   └── trackr/
+│       ├── __init__.py           # Package initialization & version metadata
+        ├── __main__.py           # Executable entry point (`python -m trackr`)
+        ├── analysis.py           # Core math: recurring detection & projections
+        ├── cli.py                # Command-line interface logic (`argparse`)
+        ├── htmlreport.py         # Self-contained HTML report builder
+        ├── io.py                 # CSV loading and transaction normalization
+        ├── models.py             # Dataclass definitions (`Transaction`, `RecurringPayment`)
+        ├── recommend.py          # Financial rule and advice engine
+        └── visualize.py          # Matplotlib chart rendering module
+├── tests/
+│   ├── __init__.py
+│   └── test_analysis.py          # Pytest unit tests for core logic
+├── pyproject.toml                # Project packaging configuration (PEP 621)
+└── README.md                     # Comprehensive project documentation
